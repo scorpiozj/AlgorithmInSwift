@@ -54,7 +54,7 @@ class ZZHLinkedList<T> {
         }
     }
     
-    public func nodeAt(index: Int) -> Node? {
+    public func nodeAt(index: UInt) -> Node? {
         if isEmpty || index > _count {
             return nil
         }else {
@@ -69,7 +69,7 @@ class ZZHLinkedList<T> {
         
     }
     
-    public subscript(index: Int) -> Node? {
+    public subscript(index: UInt) -> Node? {
         return nodeAt(index: index)
     }
     
@@ -91,16 +91,18 @@ class ZZHLinkedList<T> {
         _count += 1
     }
     
-    public func insert(node: Node, at index: Int){
+    public func insert(node: Node, at index: UInt){
         if index == 0 {
-            node.next = _header?.next
+            node.next = _header
             _header = node
+            _count += 1
         }else{
             guard let tmpNode = nodeAt(index: index - 1) else {
                 return
             }
             node.next = tmpNode.next
             tmpNode.next = node
+            _count += 1
         }
     }
     
@@ -109,16 +111,21 @@ class ZZHLinkedList<T> {
         _count = 0
     }
     
-    public func removeNodeAt(index: Int){
-        if isEmpty || index > _count {
-            return
+    public func removeNodeAt(index: UInt) -> Node?{
+        if isEmpty || index >= _count {
+            return nil
         }else {
+            var tmp:Node?
             if index == 0 {
+                tmp = _header
                 _header = _header?.next
             }else {
                 let preNode = nodeAt(index: index - 1)
+                tmp = preNode?.next
                 preNode?.next = preNode?.next?.next
             }
+            _count -= 1
+            return tmp
         }
     }
 }
@@ -139,12 +146,13 @@ extension ZZHLinkedList: CustomStringConvertible {
 let linkedList = ZZHLinkedList<Int>()
 linkedList.count
 linkedList.isEmpty
-linkedList.first
 linkedList.last
+linkedList.nodeAt(index: 2)
 
 linkedList.append(value: 1)
 linkedList.append(value: 2)
 linkedList.append(node: ZZHNode(value: 3))
+linkedList.append(node: ZZHNode(value: 4))
 
 linkedList.count
 linkedList.isEmpty
@@ -153,9 +161,28 @@ linkedList.last
 
 linkedList.nodeAt(index: 0)
 linkedList.nodeAt(index: 3)
+linkedList.nodeAt(index: 4)
 linkedList[2]
 
+linkedList.count
+linkedList
 linkedList.removeNodeAt(index: 5)
+linkedList
+linkedList.removeNodeAt(index: 3)
+linkedList
+linkedList.count
 linkedList.removeNodeAt(index: 1)
+linkedList
 linkedList.removeNodeAt(index: 0)
+linkedList
+linkedList.count
 linkedList.removeNodeAt(index: 0)
+linkedList
+
+linkedList.insert(node: ZZHNode(value: 9), at: 1)
+linkedList.count
+linkedList.insert(node: ZZHNode(value: 9), at: 0)
+linkedList.insert(node: ZZHNode(value: 8), at: 1)
+linkedList.count
+linkedList.insert(node: ZZHNode(value: 7), at: 0)
+linkedList.count

@@ -1,8 +1,8 @@
 import Foundation
 
-class ZZHStack {
+class ZZHStack<T> {
     private var capacity: Int
-    private var array: Array<Any>?
+    private var array: Array<T>?
     var size: Int {
         get {
             return self.array!.count
@@ -13,7 +13,7 @@ class ZZHStack {
         self.array = Array()
     }
     
-    func push(value: Any) -> Bool {
+    func push(value: T) -> Bool {
         if array!.count < capacity {
             self.array?.append(value)
             return true
@@ -21,11 +21,11 @@ class ZZHStack {
         return false
     }
     
-    func pop() -> Any? {
+    func pop() -> T? {
         let last = self.array?.removeLast()
         return last
     }
-    func peek() -> Any? {
+    func peek() -> T? {
         return array?.last
     }
     
@@ -42,13 +42,13 @@ extension ZZHStack: CustomStringConvertible {
     }
 }
 
-var stack = ZZHStack(capacity: 2)
+var stack = ZZHStack<Int>(capacity: 2)
 stack.push(value: 2)
-stack.push(value: "0")
+stack.push(value: 0)
 print("stack:\n\(stack)")
-stack.push(value: "3")
+stack.push(value: 0)
 print("stack:\n\(stack)")
 let first = stack.peek()
 let a = stack.pop()
-print(a as Any)
+print("\(a)")
 print("stack:\n\(stack)")

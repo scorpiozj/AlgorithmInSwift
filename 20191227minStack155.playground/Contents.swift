@@ -2,49 +2,51 @@ import Foundation
 
 class MinStack {
     private var array: [Int]?
-    private var sortedArray:[Int]?
+    private var currentMin = 0
     /** initialize your data structure here. */
     init() {
         array = Array()
-        sortedArray = Array()
     }
     
     func push(_ x: Int) {
-        array?.append(x)
-        let count = sortedArray!.count
-        var index = 0
-        for i in 0..<count {
-            if (x < sortedArray![i]){
-                index = i
-                break
-            }
-            index = i + 1
+        if array?.count == 0 {
+            currentMin = x
+        }else if currentMin > x {
+            currentMin = x
         }
-        sortedArray?.insert(x, at: index)
+        array?.append(x)
+        array?.append(currentMin)
+        
     }
     
     func pop() {
-        let last = array?.removeLast()
-        if let poped = last {
-            let index = sortedArray?.firstIndex(of: poped)
-            sortedArray?.remove(at: index!)
+        array?.removeLast()
+        array?.removeLast()
+        if let last = array?.last {
+            if last > currentMin {
+                currentMin = last
+            }
+            
         }
     }
     
     func top() -> Int {
-        return array?.last ?? 0
+        let count = array?.count
+        if count! > 0 {
+            return array![count! - 2]
+        }
+        return 0
     }
     
     func getMin() -> Int {
-        return array?.min() ?? 0
-//        return sortedArray?.first ?? 0
+        return array?.last ?? 0
     }
 }
 
 extension MinStack: CustomStringConvertible{
     var description: String{
         if let arr = array {
-            return "array:\(arr.description)\nsorted:\(sortedArray!.description)"
+           // return "array:\(arr.description)\nsorted:\(sortedArray!.description)"
             return "array:\(arr.description)"
         }else {
             return "empty"

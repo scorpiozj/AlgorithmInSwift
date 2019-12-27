@@ -104,7 +104,6 @@ class ZZHLinkedList<T> {
             tmpNode.next = node
             _count += 1
         }
-        
     }
     
     public func removeAll() {
@@ -187,11 +186,3 @@ linkedList.insert(node: ZZHNode(value: 8), at: 1)
 linkedList.count
 linkedList.insert(node: ZZHNode(value: 7), at: 0)
 linkedList.count
-
-
-
-
-
-
-
-

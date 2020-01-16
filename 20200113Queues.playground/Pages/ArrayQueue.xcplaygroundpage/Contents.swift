@@ -130,3 +130,9 @@ arrayQueue.dequeue()
 debugPrint(arrayQueue)
 
 
+/**
+ Value of type '[Element]' has no subscripts generic type
+ The issue isn't so much about subscripting. It's about type conversion. Swift gave a misleading error message. Take a look at this line:
+ https://stackoverflow.com/a/35244984/371974
+ */
+//: [Next](@CycleQueue)
